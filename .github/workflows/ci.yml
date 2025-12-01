@@ -46,6 +46,7 @@ jobs:
         name: azure-function-app
         path: ./publish
         retention-days: 30
+        include-hidden-files: true
 
   deploy:
     name: Deploy a Azure
