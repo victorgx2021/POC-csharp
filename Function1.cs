@@ -19,7 +19,7 @@ public class Function1
         _logger.LogInformation("Procesando petición HolaMundo");
         
         var response = req.CreateResponse(HttpStatusCode.OK);
-        response.WriteString("¡Hola Mundo!");
+        response.WriteString("¡Hola Mundo!!");
         
         return response;
     }

@@ -1,4 +1,4 @@
-name: CI - Build y Artifact
+name: CI/CD - Build y Deploy
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    name: Build y Publicar
     runs-on: ubuntu-latest
     
     steps:
@@ -31,7 +32,7 @@ jobs:
       continue-on-error: true
     
     - name: Publicar aplicación
-      run: dotnet publish poc.Csharp.csproj --configuration Release --output ./publish --no-build
+      run: dotnet publish poc.Csharp.csproj --configuration Release --output ./publish
     
     - name: Subir artifact para deployment
       uses: actions/upload-artifact@v4
@@ -39,3 +40,30 @@ jobs:
         name: azure-function-app
         path: ./publish
         retention-days: 30
+
+  deploy:
+    name: Deploy a Azure
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://func-cs-poc-002.azurewebsites.net
+    
+    steps:
+    - name: Descargar artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: azure-function-app
+        path: ./publish
+    
+    - name: Login a Azure
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy a Azure Function App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: func-cs-poc-002
+        package: ./publish
