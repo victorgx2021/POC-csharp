@@ -26,6 +26,19 @@ jobs:
     
     - name: Publicar aplicación
       run: dotnet publish poc.Csharp.csproj --configuration Release --output ./publish
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: 1
+    
+    - name: Listar contenido de publish (debug)
+      run: |
+        echo "=== Contenido de ./publish ==="
+        ls -la ./publish
+        echo ""
+        echo "=== Archivos .azurefunctions ==="
+        ls -la ./publish/.azurefunctions/ || echo "ERROR: Carpeta .azurefunctions NO existe"
+        echo ""
+        echo "=== Archivos clave ==="
+        ls -l ./publish/host.json ./publish/functions.metadata ./publish/worker.config.json || echo "Faltan archivos"
     
     - name: Subir artifact para deployment
       uses: actions/upload-artifact@v4
@@ -60,3 +73,6 @@ jobs:
       with:
         app-name: func-cs-poc-002
         package: ./publish
+    
+    - name: Restart Function App
+      run: az functionapp restart --resource-group poc-csharp --name func-cs-poc-002
