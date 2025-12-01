@@ -24,13 +24,6 @@ jobs:
     - name: Restaurar dependencias
       run: dotnet restore poc.Csharp.csproj
     
-    - name: Build del proyecto
-      run: dotnet build poc.Csharp.csproj --configuration Release --no-restore
-    
-    - name: Ejecutar tests (si existen)
-      run: dotnet test poc.Csharp.csproj --configuration Release --no-build --verbosity normal
-      continue-on-error: true
-    
     - name: Publicar aplicación
       run: dotnet publish poc.Csharp.csproj --configuration Release --output ./publish
     

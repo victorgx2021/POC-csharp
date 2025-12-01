@@ -4,3 +4,9 @@ tmp/
 local.settings.json
 publish/
 deploy.zip
+azure-function-app.zip
+.vscode/
+*.user
+*.suo
+*.log
+*.vs/
