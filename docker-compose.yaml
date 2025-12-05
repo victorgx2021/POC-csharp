@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  sonarqube:
+    image: mc1arke/sonarqube-with-community-branch-plugin:25.6.0.109173-community
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: ${SONAR_USER}
+      SONAR_JDBC_PASSWORD: ${SONAR_PASSWORD}
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+    ports:
+      - "9000:9000"
+  db:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: ${SONAR_USER}
+      POSTGRES_PASSWORD: ${SONAR_PASSWORD}
+      POSTGRES_DB: sonar

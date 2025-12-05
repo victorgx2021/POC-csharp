@@ -10,3 +10,4 @@ azure-function-app.zip
 *.suo
 *.log
 *.vs/
+.env
