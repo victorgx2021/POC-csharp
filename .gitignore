@@ -11,3 +11,4 @@ azure-function-app.zip
 *.log
 *.vs/
 .env
+TestResults/

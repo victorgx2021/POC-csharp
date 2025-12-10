@@ -1,0 +1,23 @@
+name: CI/CD - Build y Deploy
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Sonar analisis
+    runs-on: sonarqube
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restaurar dependencias
+      run: dotnet restore poc.Csharp.csproj
