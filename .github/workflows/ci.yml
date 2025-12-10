@@ -1,8 +1,8 @@
 name: CI/CD - Build y Deploy
 
 on:
-  push:
-    branches: [ main, develop ]
+  #push:
+  #  branches: [ main, develop ]
   workflow_dispatch:
 
 jobs:
