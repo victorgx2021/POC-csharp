@@ -16,6 +16,12 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v4
     
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
