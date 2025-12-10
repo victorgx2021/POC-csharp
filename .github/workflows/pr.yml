@@ -26,7 +26,7 @@ jobs:
       run: echo "${{ runner.temp }}/dotnet" >> $GITHUB_PATH
     
     - name: Restaurar dependencias
-      run: dotnet restore poc.Csharp.csproj
+      run: dotnet restore POC-csharp.sln
 
     - name: SonarQube - Install dotnet-sonarscanner
       run: dotnet tool install --global dotnet-sonarscanner --version 5.12.0
@@ -45,11 +45,11 @@ jobs:
           /d:sonar.sourceEncoding="utf-8"
 
     - name: Build
-      run: dotnet build poc.Csharp.csproj --configuration Release
+      run: dotnet build POC-csharp.sln --configuration Release
 
     - name: Test + generar cobertura (OpenCover via coverlet)
       run: |
-        dotnet test poc.Csharp.csproj --configuration Release --no-build \
+        dotnet test tests/POC.Tests/POC.Tests.csproj --configuration Release --no-build \
           /p:CollectCoverage=true \
           /p:CoverletOutput=TestResults/ \
           /p:CoverletOutputFormat=opencover
