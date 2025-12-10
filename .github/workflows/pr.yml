@@ -18,6 +18,12 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
+      env:
+        DOTNET_INSTALL_DIR: ${{ runner.temp }}/dotnet
+        DOTNET_ROOT: ${{ runner.temp }}/dotnet
+    
+    - name: Añadir dotnet al PATH
+      run: echo "${{ runner.temp }}/dotnet" >> $GITHUB_PATH
     
     - name: Restaurar dependencias
       run: dotnet restore poc.Csharp.csproj
