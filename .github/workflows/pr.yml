@@ -1,4 +1,4 @@
-name: CI/CD - Build y Deploy
+name: Pull request
 
 on:
   pull_request:
